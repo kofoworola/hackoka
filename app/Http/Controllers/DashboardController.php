@@ -8,6 +8,6 @@ class DashboardController extends Controller
 {
     public function dashboard($domain){
     	$hospital = \App\Hospital::where('slug',$domain)->first();
-    	return view('admin.dashboard',['hospital'=>$hospital]);
+    	return view('admin.dashboard');
     }
 }

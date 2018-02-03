@@ -22,12 +22,16 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    private $hospital;
+
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    public function redirectTo(){
+        return route('dashboard',['domain' => $this->hospital->slug]);
+    }
 
     /**
      * Create a new controller instance.
@@ -63,7 +67,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $hospital = \App\Hospital::create([
+        $this->hospital = \App\Hospital::create([
             'name' => $data['name'],
             'slug' => $data['slug'],
         ]);
@@ -71,7 +75,7 @@ class RegisterController extends Controller
             'fname' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'hospital_id' => $hospital->id,
+            'hospital_id' => $this->hospital->id,
         ]);
         $user->assignRole('admin');
 
