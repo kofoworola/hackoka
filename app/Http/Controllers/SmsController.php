@@ -13,7 +13,7 @@ class SmsController extends Controller
  		$date = $request->date;
  		$id = $request->id;
 
- 		$reply = explod("-",$text)[0];
+ 		$reply = explode("-",$text)[0];
  		$appointment = explode("-",$text)[1];
 
  		if($reply == "YES"){
@@ -27,5 +27,6 @@ class SmsController extends Controller
  			$appointment->status = 2;
  			$appointment->save();
  		}
+ 		dispatch(new \App\Jobs\TellPatient($appointment));
     }
 }

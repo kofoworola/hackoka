@@ -7,6 +7,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use App\AfricasTalkingGateway;
 
 class TellPatient implements ShouldQueue
 {
@@ -38,11 +39,11 @@ class TellPatient implements ShouldQueue
 
         $recipients = "+234".$patient->phone;
         $message = "";
-        if($appointment->status ==1 )
+        if($this->appointment->status ==1 )
         {
         $message    = "Dr. ".$doctor->fname. " approved your appointment request";
     }
-    if($appointment->status ==2 )
+    if($this->appointment->status ==2 )
         {
         $message    = "Dr. ".$doctor->fname. " denied your appointment request";
     }

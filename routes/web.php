@@ -28,6 +28,6 @@ Route::get('/', function () {
 });
 
 Route::post('ussd','UssdController@handle');
-Route::post('sms','UssdController@handle');
+Route::post('sms','SmsController@handle');
 
 Auth::routes();
