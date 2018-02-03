@@ -22,6 +22,7 @@
                   <th>Name</th>
                   <th>Email</th>
                   <th>Doctor</th>
+                  <th>Id</th>
                   <th>Delete</th>
                 </tr>
                 </thead>
@@ -31,6 +32,7 @@
                 		<td>{{$patient->fullName()}}</td>
                 		<td>{{$patient->email}}</td>
                 		<td>{{$patient->doctors[0]->fullName()}}</td>
+                    <td>{{$patient->patient_id}}</td>
                 		<td><a href="{{route('admin.delete_patient',['domain' => $hospital->slug])}}" class="btn btn-sm btn-primary" onclick="event.preventDefault();document.getElementById('delete-{{$patient->id}}').submit();">Delete</a>
                 		<form id="delete-{{$patient->id}}" action="{{ route('admin.delete_patient',['domain' => $hospital->slug]) }}" method="POST" style="display: none;">
                 			<input type="hidden" name="doctor" value="{{$patient->id}}">
