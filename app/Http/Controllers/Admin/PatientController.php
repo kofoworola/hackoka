@@ -5,13 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class DoctorController extends Controller
+class PatientController extends Controller
 {
     public function show($domain){
-    	$hospital = \App\Hospital::where('slug',$domain);
-    	$data['hospital'] = $hospital;
-
-    	return view('admin.doctors',$data);
     }
 
     public function add($domain){
@@ -21,19 +17,20 @@ class DoctorController extends Controller
     	}
     	$data['hospital'] = $hospital;
 
-    	return view('admin.add_doctors',$data);
+    	return view('admin.add_patient',$data);
     }
 
-    public function save(Request $request, $domain){
-    	$this->validate($request,[
+    public function save(Request $request,$domain){
+    		$this->validate($request,[
     		'fname' => 'required',
     		'lname' => 'required',
     		'email' => 'required',
     		'phone' => 'required',
+    		'doctor' => 'required',
     	]);
 
     	$hospital = \App\Hospital::where('slug',$domain)->first();
-    	$doctor = \App\User::create([
+    	$patient = \App\User::create([
     		'fname' => $request->fname,
     		'lname' => $request->lname,
     		'email' => $request->email,
@@ -42,10 +39,20 @@ class DoctorController extends Controller
     		'password' => bcrypt(trim(strtolower($request->fname.$request->lname))),
     	]);
 
-    	$doctor->assignRole('doctor');
+    	$patient_id = round(microtime(true) * 1000);
+    	$patient_id = str_replace(".", "", $patient_id);
 
-    	dispatch(new \App\Jobs\InvitePatient($doctor,trim(strtolower($request->fname.$request->lname)),'doctor'));
-    	return redirect()->back()->with('success','Doctor has been created');
+    	$patient->patient_id = $patient_id;
+    	$patient->save();
+
+    	$doctor= \App\User::find($request->doctor);
+
+    	$patient->assignRole('patient');
+
+    	$doctor->patients()->attach($patient->id);
+
+    	dispatch(new \App\Jobs\InviteUser($patient,trim(strtolower($request->fname.$request->lname)),'patient'));
+    	return redirect()->back()->with('success','Patient has been created');
+    
     }
-
 }

@@ -104,6 +104,18 @@
             <li><a href="{{ route('admin.add_doctor',['domain'=>$hospital->slug])}}"><i class="fa fa-circle-o"></i>Add Doctor</a></li>
           </ul>
         </li>
+        <li class="active treeview">
+          <a href="{{ route('admin.patients',['domain' => $hospital->slug])}}">
+            <i class="fa fa-dashboard"></i> <span>Patients</span>
+            <span class="pull-right-container">
+              <i class="fas fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active"><a href="{{ route('admin.patients',['domain' => $hospital->slug])}}"><i class="fa fa-circle-o"></i> All Patients</a></li>
+            <li><a href="{{ route('admin.add_patient',['domain'=>$hospital->slug])}}"><i class="fa fa-circle-o"></i>Add Patient</a></li>
+          </ul>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->

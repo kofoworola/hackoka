@@ -6,7 +6,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Add Doctor</h3>
+              <h3 class="box-title">Add Patient</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -17,7 +17,7 @@
                 {{ session('success')}}
               </div>
             @endif
-            <form method="POST" action="{{route('admin.add_doctor',['domain'=>$hospital->slug])}}">
+            <form method="POST" action="{{route('admin.add_patient',['domain'=>$hospital->slug])}}">
             	{{csrf_field()}}
               <div class="box-body">
               	<div class="form-group{{ $errors->has('fname') ? ' has-error' : '' }}">
@@ -50,12 +50,27 @@
                 </div>
                 <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                   <label for="exampleInputPassword1">Phone number</label>
-                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="e.g +23408123456789" name="phone">
+                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Phone number" name="phone">
                   @if ($errors->has('phone'))
             		<span class="help-block">
                 		<strong>{{ $errors->first('phone') }}</strong>
             		</span>
         		@endif
+                </div>
+
+                <div class="form-group{{ $errors->has('doctor') ? ' has-error' : '' }}">
+                  <label for="exampleInputPassword1">Doctor</label>
+                  <select name="doctor" required="" class="form-control">
+                    <option>Select</option>
+                    @foreach($hospital->doctors() as $doctor)
+                      <option value="{{ $doctor->id}}">{{ $doctor->fullName()}}</option>
+                    @endforeach
+                  </select>
+                  @if ($errors->has('phone'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('phone') }}</strong>
+                </span>
+            @endif
                 </div>
               </div>
               <!-- /.box-body -->

@@ -32,4 +32,18 @@ class User extends Authenticatable
     public function hospital(){
         return $this->belongsTo('App\Hospital');
     }
+
+    public function fullName(){
+        return $this->fname. " ". $this->lname;
+    }
+
+    public function patients()
+    {
+        return $this->belongsToMany('App\User','doctor_patient','doctor_id','patient_id');
+    }
+
+    public function doctors()
+    {
+        return $this->belongsToMany('App\User','doctor_patient','patient_id','doctor_id');
+    }
 }
