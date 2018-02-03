@@ -15,7 +15,7 @@ class CreateUssdSessionsTable extends Migration
     {
         Schema::create('ussd_sessions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('session_id');
+            $table->string('session_id');
             $table->boolean('active')->default(1);
             $table->string('phone');
             $table->integer('user_id')->nullable();

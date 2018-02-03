@@ -27,7 +27,7 @@ class UssdController extends Controller
     	}
 
     	if($text == ""){
-    		echo "Please input your patient id";
+    		echo "CON Please input your patient id";
     	}
     	else{
     		$items = $this->splitText($text);
@@ -59,8 +59,9 @@ class UssdController extends Controller
             if(count($items) == 3){
                 $patient = \App\User::where('patient_id',$items[0])->first();
                 $date = Carbon::parse($items[2]);
-                $session->appointment->end_date = $date;
-                $session->appointment->save();
+                $appointment = $session->appointment;
+                $appointment->end_date = $date;
+                $appointment->save();
                 $session->save();
 
                 dispatch(new \App\Jobs\RequestAppointment($session->appointment));
