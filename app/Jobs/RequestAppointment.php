@@ -37,9 +37,9 @@ class RequestAppointment implements ShouldQueue
         $username = 'sandbox';
         $apiKey = "9cb7b64fbe309fcaa7d310dcba6a5ce6056d699b18a6e00b235a4e5c16501ab3";
 
-        $recipients = "+234".$doctor->phone;
+        $recipients = $doctor->phone;
 
-        $message    = "Your patient ".$patient->fname ." "$patient->lname[0]. " has requested an appointment at ".$this->appointment->appointment->toDateTimeString()." reply YES-".$this->appointment->id." to confirm and NO-".$this->appointment->id." to deny" ;
+        $message    = "Your patient ".$patient->fname ." ".$patient->lname[0]. " has requested an appointment at ".$this->appointment->start_date->toDateTimeString()." to ".$this->appointment->end_date->toDateTimeString()." reply YES-".$this->appointment->id." to confirm and NO-".$this->appointment->id." to deny" ;
 
         $gateway  = new AfricasTalkingGateway($username, $apiKey, "sandbox");
 

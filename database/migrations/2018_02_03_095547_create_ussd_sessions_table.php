@@ -19,6 +19,7 @@ class CreateUssdSessionsTable extends Migration
             $table->boolean('active')->default(1);
             $table->string('phone');
             $table->integer('user_id')->nullable();
+            $table->integer('appointment_id')->nullable();
             $table->timestamps();
         });
     }

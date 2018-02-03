@@ -38,9 +38,9 @@ class InviteUser implements ShouldQueue
         $username = 'sandbox';
         $apiKey = "9cb7b64fbe309fcaa7d310dcba6a5ce6056d699b18a6e00b235a4e5c16501ab3";
 
-        $recipients = "+234".$this->user->phone;
+        $recipients = $this->user->phone;
 
-        $message    = "A ".$this->type." Account has been created for you on ".$this->user->hospital->name. ".Login at ".route('dashboard',['domain'=> $this->user->hospital->slug]). " with ".$this->user->email. "and ".$this->password;
+        $message    = "A ".$this->type." Account has been created for you on ".$this->user->hospital->name. ". Login at ".route('dashboard',['domain'=> $this->user->hospital->slug]). " with ".$this->user->email. "and ".$this->password;
 
         $gateway  = new AfricasTalkingGateway($username, $apiKey, "sandbox");
 

@@ -17,7 +17,8 @@ class CreateAppointmentsTable extends Migration
             $table->increments('id');
             $table->integer('doctor_id');
             $table->integer('patient_id');
-            $table->datetime('appointment');
+            $table->datetime('start_date');
+            $table->datetime('end_date')->nullable();
             $table->integer('status')->default(0);
             //1 means approved 2 means cancelled 0 means waiting
             $table->timestamps();

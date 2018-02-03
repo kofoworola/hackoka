@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 class PatientController extends Controller
 {
     public function show($domain){
+        $hospital = \App\Hospital::where('slug',$domain)->first();
+        $data['hospital'] = $hospital;
+
+        return view('admin.patients',$data);
     }
 
     public function add($domain){
@@ -54,5 +58,13 @@ class PatientController extends Controller
     	dispatch(new \App\Jobs\InviteUser($patient,trim(strtolower($request->fname.$request->lname)),'patient'));
     	return redirect()->back()->with('success','Patient has been created');
     
+    }
+
+    public function delete(Request $request){
+        $doctor = \App\User::find($request->doctor);
+
+        $doctor->delete();
+
+        return redirect()->back()->with('success','Patient has been deleted');
     }
 }

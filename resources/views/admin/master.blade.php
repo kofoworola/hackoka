@@ -154,5 +154,6 @@
 <!-- ./wrapper -->
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="/js/adminlte.min.js"></script>
+@yield('scripts')
 </body>
 </html>

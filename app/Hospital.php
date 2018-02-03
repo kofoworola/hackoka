@@ -13,4 +13,8 @@ class Hospital extends Model
     public function doctors(){
     	return User::role('doctor')->where('hospital_id',$this->id)->get();
     }
+
+    public function patients(){
+    	return User::role('patient')->where('hospital_id',$this->id)->get();
+    }
 }

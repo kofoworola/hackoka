@@ -48,13 +48,25 @@ class UssdController extends Controller
     			$appointment = new \App\Appointment();
     			$appointment->patient_id = $patient->id;
     			$appointment->doctor_id = $patient->doctors[0]->id;
-    			$appointment->appointment = $date;
+    			$appointment->start_date = $date;
     			$appointment->save();
 
-    			echo "END Your appointment request has been made and an sms will be sent when confirmed";
+                $session->appointment_id = $appointment->id;
+                $session->save();
 
-    			dispatch(new \App\Jobs\RequestAppointment($appointment));
+    			echo "CON Enter the end time in the format yy-mm--dd HH:MM";   			
     		}
+            if(count($items) == 3){
+                $patient = \App\User::where('patient_id',$items[0])->first();
+                $date = Carbon::parse($items[2]);
+                $session->appointment->end_date = $date;
+                $session->appointment->save();
+                $session->save();
+
+                dispatch(new \App\Jobs\RequestAppointment($session->appointment));
+
+                echo "END Your appointment request has been made";
+            }
     	}
     }
 

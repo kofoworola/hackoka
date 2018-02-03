@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 class DoctorController extends Controller
 {
     public function show($domain){
-    	$hospital = \App\Hospital::where('slug',$domain);
+    	$hospital = \App\Hospital::where('slug',$domain)->first();
     	$data['hospital'] = $hospital;
 
     	return view('admin.doctors',$data);
@@ -44,8 +44,16 @@ class DoctorController extends Controller
 
     	$doctor->assignRole('doctor');
 
-    	dispatch(new \App\Jobs\InvitePatient($doctor,trim(strtolower($request->fname.$request->lname)),'doctor'));
+    	dispatch(new \App\Jobs\InviteUser($doctor,trim(strtolower($request->fname.$request->lname)),'doctor'));
     	return redirect()->back()->with('success','Doctor has been created');
+    }
+
+    public function delete(Request $request){
+        $doctor = \App\User::find($request->doctor);
+
+        $doctor->delete();
+
+        return redirect()->back()->with('success','Doctor has been deleted');
     }
 
 }

@@ -1,4 +1,4 @@
-@extends('master')
+@extends('admin.master')
 
 @section('content')
 <div class="row">
@@ -50,7 +50,7 @@
                 </div>
                 <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                   <label for="exampleInputPassword1">Phone number</label>
-                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Phone number" name="phone">
+                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="e.g +2348012345678" name="phone">
                   @if ($errors->has('phone'))
             		<span class="help-block">
                 		<strong>{{ $errors->first('phone') }}</strong>

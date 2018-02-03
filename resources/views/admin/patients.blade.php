@@ -5,7 +5,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Doctors</h3>
+              <h3 class="box-title">Patients</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -16,24 +16,24 @@
                 {{ session('success')}}
               </div>
             @endif
-              <table id="datatable" class="table table-bordered table-hover">
+              <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
                   <th>Name</th>
                   <th>Email</th>
-                  <th>Patients</th>
+                  <th>Doctor</th>
                   <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
-                	@foreach($hospital->doctors() as $doctor)
+                	@foreach($hospital->patients() as $patient)
                 	<tr>
-                		<td>{{$doctor->fullName()}}</td>
-                		<td>{{$doctor->email}}</td>
-                		<td>{{count($doctor->patients)}}</td>
-                		<td><a href="{{route('admin.delete_doctor',['domain' => $hospital->slug])}}" class="btn btn-sm btn-primary" onclick="event.preventDefault();document.getElementById('delete-{{$doctor->id}}').submit();">Delete</a>
-                		<form id="delete-{{$doctor->id}}" action="{{ route('admin.delete_doctor',['domain' => $hospital->slug]) }}" method="POST" style="display: none;">
-                			<input type="hidden" name="doctor" value="{{$doctor->id}}">
+                		<td>{{$patient->fullName()}}</td>
+                		<td>{{$patient->email}}</td>
+                		<td>{{$patient->doctors[0]->fullName()}}</td>
+                		<td><a href="{{route('admin.delete_patient',['domain' => $hospital->slug])}}" class="btn btn-sm btn-primary" onclick="event.preventDefault();document.getElementById('delete-{{$patient->id}}').submit();">Delete</a>
+                		<form id="delete-{{$patient->id}}" action="{{ route('admin.delete_patient',['domain' => $hospital->slug]) }}" method="POST" style="display: none;">
+                			<input type="hidden" name="doctor" value="{{$patient->id}}">
                     	{{ csrf_field() }}
                   		</form></td>
                 	</tr>
@@ -53,7 +53,7 @@
 
 @section('scripts')
 <script>
-	$('#datatable').DataTable({
+  $('#datatable').DataTable({
       'paging'      : true,
       'lengthChange': false,
       'searching'   : false,

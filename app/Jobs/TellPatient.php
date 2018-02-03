@@ -37,7 +37,7 @@ class TellPatient implements ShouldQueue
         $username = 'sandbox';
         $apiKey = "9cb7b64fbe309fcaa7d310dcba6a5ce6056d699b18a6e00b235a4e5c16501ab3";
 
-        $recipients = "+234".$patient->phone;
+        $recipients = $patient->phone;
         $message = "";
         if($this->appointment->status ==1 )
         {

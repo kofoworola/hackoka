@@ -9,6 +9,7 @@ class Appointment extends Model
      protected $dates = [
         'created_at',
         'updated_at',
-        'appointment',
+        'start_date',
+        'end_date',
     ];
 }

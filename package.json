@@ -19,6 +19,7 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
+        "datatables": "^1.10.13",
         "jquery-ui": "^1.12.1"
     }
 }

@@ -8,6 +8,8 @@
 require('./bootstrap');
 require('jquery-ui');
 
+require('datatables');
+
 window.Vue = require('vue');
 
 /**
